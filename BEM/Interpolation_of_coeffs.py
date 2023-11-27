@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Aug 30 15:56:42 2022
-
-@author: cgrinde
-"""
-
-
 """ This file is used to search for the right value of Cl and Cd by doing a double interpolation on angle of attach and thickness """
 """ This is also the file where the blades profils are imported"""
 
@@ -68,7 +60,7 @@ def force_coeffs_10MW(angle_of_attack,thick,aoa_tab,cl_tab,cd_tab,cm_tab):
 
 
 
-""" Test of the function """
+""" If you want to use the function do this : """
 
 """
 angle_of_attack=-10 # in degrees
