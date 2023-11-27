@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Sep 22 10:26:47 2023
-
-@author: theodoreln
-"""
-
-
 """ This file just read the geometry of the blade and store it in memory """
 
 import csv
@@ -27,4 +19,5 @@ with open(file[0]) as f:
         c_list[i] = float(row[2])
         thick_list[i] = float(row[3])
         i = i + 1
+
 
