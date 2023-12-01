@@ -71,17 +71,9 @@ for line in lines[2:] :
 
 """ Internal Forces """
 
-# Converting pn and pt to py and pz - Watch out loads are in kN
-def py_pz(pn, pt, stru_pitch, twist, pitch) :
-    py, pz = [], []
-    for i in range(len(pn)) :
-        py.append(pt[i]*cos(stru_pitch[i] + twist[i] + pitch) + pn[i]*sin(stru_pitch[i] + twist[i] + pitch))
-        pz.append(pn[i]*cos(stru_pitch[i] + twist[i] + pitch) - pt[i]*sin(stru_pitch[i] + twist[i] + pitch))
-    return (py, pz)
-
-py_6, pz_6 = py_pz(pn_6, pt_6, stru_pitch, twist, pitch_6)
-py_11, pz_11 = py_pz(pn_11, pt_11, stru_pitch, twist, pitch_11)
-py_20, pz_20 = py_pz(pn_20, pt_20, stru_pitch, twist, pitch_20)
+# Watch out, in this exercice, we want to have a look at tangeantial and normal deformation
+# So we are using pt as py and pn as pz !!!!! 
+# The same for every y and z in the rest of the exercice !!!
 
 # Shear force and Moment - Watch out forces are in kN
 def T_M(r, py, pz) :
@@ -94,9 +86,9 @@ def T_M(r, py, pz) :
         Mz[N-(i+2)] = Mz[N-(i+1)] + Ty[N-(i+1)]*(r[N-(i+1)]-r[N-(i+2)]) + ((1/6)*py[N-(i+2)]+(1/3)*py[N-(i+1)])*(r[N-(i+1)]-r[N-(i+2)])*(r[N-(i+1)]-r[N-(i+2)])
     return (Ty, Tz, My, Mz)
 
-Ty_6, Tz_6, My_6, Mz_6 = T_M(r, py_6, pz_6)
-Ty_11, Tz_11, My_11, Mz_11 = T_M(r, py_11, pz_11)
-Ty_20, Tz_20, My_20, Mz_20 = T_M(r, py_20, pz_20)
+Ty_6, Tz_6, My_6, Mz_6 = T_M(r, pt_6, pn_6)
+Ty_11, Tz_11, My_11, Mz_11 = T_M(r, pt_11, pn_11)
+Ty_20, Tz_20, My_20, Mz_20 = T_M(r, pt_20, pn_20)
 
 
 """ Curvature """
@@ -195,25 +187,25 @@ def plot(r, V0, py, pz, Ty, Tz, My, Mz, ky, kz, angley, anglez, defly, deflz) :
     plt.axhline(0, color='gray', linewidth=0.5)
     plt.show()
     
-# plot(r, V0_6, py_6, pz_6, Ty_6, Tz_6, My_6, Mz_6, ky_6, kz_6, angley_6, anglez_6, defly_6, deflz_6)
-# plot(r, V0_11, py_11, pz_11, Ty_11, Tz_11, My_11, Mz_11, ky_11, kz_11, angley_11, anglez_11, defly_11, deflz_11)
-# plot(r, V0_20, py_20, pz_20, Ty_20, Tz_20, My_20, Mz_20, ky_20, kz_20, angley_20, anglez_20, defly_20, deflz_20)
+plot(r, V0_6, pt_6, pn_6, Ty_6, Tz_6, My_6, Mz_6, ky_6, kz_6, angley_6, anglez_6, defly_6, deflz_6)
+plot(r, V0_11, pt_11, pn_11, Ty_11, Tz_11, My_11, Mz_11, ky_11, kz_11, angley_11, anglez_11, defly_11, deflz_11)
+plot(r, V0_20, pt_20, pn_20, Ty_20, Tz_20, My_20, Mz_20, ky_20, kz_20, angley_20, anglez_20, defly_20, deflz_20)
 
-# plt.plot(r, py_6, 'b.-')
-# plt.plot(r, py_11, 'r.-')
-# plt.plot(r, py_20, 'y.-')
-# plt.xlabel('x [m]')
-# plt.ylabel('Py(x) [kN/m]')
-# plt.legend(["V0 = 6 m/s", "V0 = 11 m/s", "V0 = 20 m/s"]) 
-# plt.show()
+plt.plot(r, pn_6, 'b.-')
+plt.plot(r, pn_11, 'r.-')
+plt.plot(r, pn_20, 'y.-')
+plt.xlabel('x [m]')
+plt.ylabel('Pz(x) [kN/m]')
+plt.legend(["V0 = 6 m/s", "V0 = 11 m/s", "V0 = 20 m/s"]) 
+plt.show()
 
-# plt.plot(r, pz_6, 'b.-')
-# plt.plot(r, pz_11, 'r.-')
-# plt.plot(r, pz_20, 'y.-')
-# plt.xlabel('x [m]')
-# plt.ylabel('Pz(x) [kN/m]')
-# plt.legend(["V0 = 6 m/s", "V0 = 11 m/s", "V0 = 20 m/s"]) 
-# plt.show()
+plt.plot(r, pt_6, 'b.-')
+plt.plot(r, pt_11, 'r.-')
+plt.plot(r, pt_20, 'y.-')
+plt.xlabel('x [m]')
+plt.ylabel('Py(x) [kN/m]')
+plt.legend(["V0 = 6 m/s", "V0 = 11 m/s", "V0 = 20 m/s"]) 
+plt.show()
 
 
 """ Deflection calculation from the beginning """
